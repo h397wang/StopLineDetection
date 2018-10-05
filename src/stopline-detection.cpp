@@ -107,8 +107,7 @@ void warp_corners(Mat& gray, Point2f vert[], Mat& warped, Mat& M, Mat& Minv) {
 
 }
 
-int detectSign(Mat img_init)
-{
+int detectStopLine(Mat img_init) {
 
     Mat gray;
     cvtColor(img_init, gray,COLOR_BGR2GRAY);
@@ -137,8 +136,6 @@ int detectSign(Mat img_init)
 
 	Mat warped_out;
 
-
-
 	warp_corners(combined_binary, src, top_down_edges, perspective_M, Minv);
 	//imshow( WINDOW_NAME, top_down_edges );
 
@@ -160,8 +157,7 @@ int detectSign(Mat img_init)
 
 	double max_dist = 0;
 	Vec4i stopline(0,0,0,0);
-	for( size_t i = 0; i < lines.size(); i++ )
-	{
+	for (size_t i = 0; i < lines.size(); i++ ) {
 		Vec4i l = lines[i];
 		double dy = l[3]-l[1];
 		double dx = l[2]-l[0];
@@ -178,7 +174,7 @@ int detectSign(Mat img_init)
 
     }
 
-	if(max_dist){
+	if (max_dist){
 		line( warped_out, Point(stopline[0], stopline[1]), Point(stopline[2], stopline[3]), Scalar(0,0,255), 3, CV_AA);
 	}
 
@@ -187,12 +183,11 @@ int detectSign(Mat img_init)
 
     imshow( WINDOW_NAME, warped_out );
 
-	if(waitKey(0) == 'q')
-	{
-	 	imwrite("color-filter.jpg",c_img);
-	 	imwrite("canny.jpg",edges);
-	 	imwrite("concat.jpg",combined_binary);
-	 	imwrite("mask.jpg",mask);
+	if(waitKey(0) == 'q') {
+	 	imwrite("color-filter.jpg", c_img);
+	 	imwrite("canny.jpg", edges);
+	 	imwrite("concat.jpg", combined_binary);
+	 	imwrite("mask.jpg", mask);
 	}
 
     return 0;
