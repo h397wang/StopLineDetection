@@ -27,8 +27,6 @@ const double min_line_length = 180; //minimum number of pixels making up a line
 const double max_line_gap = 20; //maximum gap in pixels between connectable line segments
 
 
-int detectSign(Mat img_init);
-
 int main (int argc, char* argv[])
 {
 	Mat image;
